@@ -1,0 +1,15 @@
+{% if object %}
+    <div class="inline image">
+      <img src="{{ object.display.url }}" class="{{ class }}" />
+      {% if object.title %}<span class="caption">{{ object.title }}</span>{% endif %}
+    </div>
+{% endif %}
+
+{% if object_list %}
+    {% for object in object_list %}
+      <div class="inline image">
+        <img src="{{ object.display.url }}" class="{{ class }}" />
+        {% if object.title %}<span class="caption">{{ object.title }}</span>{% endif %}
+      </div>
+    {% endfor %}
+{% endif %}

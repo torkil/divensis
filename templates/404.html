@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="no">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>404 Page Not Found // Tailored pixels by Divensis Design</title>
+    <meta name="copyright" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="index, follow" />
+    <meta name="distribution" content="global" />
+    <meta name="description" content="Divensis Design" />
+    <link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}gfx/favicon.png" />
+    <link rel="apple-touch-icon" href="{{ MEDIA_URL }}gfx/apple-touch-icon.png" />
+    {% load compress %}
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/divensis.css" />
+    {% endcompress %}
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    {% compress js %}
+    <script src="{{ MEDIA_URL }}js/cufon-yui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/core.js" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+    <script src="{{ MEDIA_URL }}js/mokka.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/mokka_sc.js" type="text/javascript" charset="utf-8"></script>
+    <!--[if IE]><meta http-equiv="imagetoolbar" content="no" /><meta http-equiv="X-UA-Compatible" content="IE=8" /><![endif]-->
+</head>
+
+<body id="{% block bodyid %}{% endblock %}">
+
+<div id="fullwrapper">
+<div id="fullwrapper2">
+  <div id="wrap">
+    <h2>404 Page Not Found</h2>
+    
+    <p style="margin-top: 10px;">I'm sorry, but the page you asked for could not be found.</p>
+    
+    <p style="margin-top: 10px;">Use one of the links below to get back to browsing the Divensis site</p>
+    
+    <ul style="margin-top: 10px; margin-left: 10px; list-style: disc inside;">
+      <li><a href="/" style="display: inline;">Home</a></li>
+      <li><a href="/about/" style="display: inline;">About</a></li>
+      <li><a href="/projects/" style="display: inline;">Projects</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+Cufon.now();
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4708909-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+/* ]]> */
+</script>
+</body>
+</html>

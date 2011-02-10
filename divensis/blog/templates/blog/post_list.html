@@ -1,0 +1,125 @@
+{% load tagging_tags %}
+{% load blog_tags %}
+
+<p>All tags in blog:</p>
+<ul>
+    {% tags_for_model blog.post as all_tags %}
+    {% for tag in all_tags %}
+        <li><a href="{% url blog_tag_detail slug=tag %}">{{ tag }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>All categories in blog:</p>
+<ul>
+    {% get_blog_categories as category_list %}
+    {% for category in category_list %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>Last 5 posts:</p>
+<ul>
+    {% get_latest_posts 5 as latest_posts_list %}
+    {% for post in latest_posts_list %}
+        <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>Blog archive:</p>
+<ul>
+    {% get_post_archive as post_archive_list %}
+    {% for month in post_archive_list %}
+        <li>
+            <a href="{% url blog_archive_month year=month|date:"Y" month=month|date:"m" %}">
+                {{ month|date:"F Y" }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>Post list</p>
+{% for object in object_list %}
+    <ul>
+        <li><a href="{{ object.get_absolute_url }}">Absolute URL</a></li>
+        <li>Title: {{ object.title }}</li>
+        <li>Slug: {{ object.slug }}</li>
+        <li>Author: {{ object.author }}</li>
+        <li>Categories:
+            <ul>
+                {% for category in object.categories.all %}
+                <li>
+                    <a href="{{ category.get_absolute_url }}">
+                        {{ category.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Allow comments: {{ object.allow_comments }}</li>
+        <li>Visits: {{ object.visits }}</li>
+        <li>Tags:
+            <ul>
+                {% tags_for_object object as tags %}
+                {% for tag in tags %}
+                    <li>
+                        <a href="{% url blog_tag_detail slug=tag %}">
+                            {{ tag }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Published: {{ object.published_date }}</li>
+        <li>Created: {{ object.created_date }}</li>
+        <li>Modified: {{ object.modified_date }}</li>
+        <li>Status: {{ object.status }}</li>
+        <li>Excerpt: {{ object.excerpt }}</li>
+        <li>Body: {{ object.body }}</li>
+        <li>Body HTML:{{ object.body_html }}</li>
+    </ul>
+    <hr />
+{% empty %}
+    <p>There are no posts here.</p>
+{% endfor %}
+
+{% if is_paginated %}
+    <ul>
+        <li>num_pages: {{ paginator.num_pages }}</li>
+        <li>page_range: {{ paginator.page_range }}</li>
+        <li>count: {{ paginator.count }}</li>
+        <li>start_index: {{ page_obj.start_index }}</li>
+        <li>end_index: {{ page_obj.end_index }}</li>
+        <li>has_next: {{ page_obj.has_next }}</li>
+        <li>has_previous: {{ page_obj.has_previous }}</li>
+        <li>number: {{ page_obj.number }}</li>
+        <li>previous_page_number: {{ page_obj.previous_page_number }}</li>
+        <li>next_page_number: {{ page_obj.next_page_number }}</li>
+        <li>has_other_pages: {{ page_obj.has_other_pages }}</li>
+    </ul>
+    
+    <ul>
+    {% if page_obj.has_previous %}
+        <li>
+            <a href="{% url blog_index_paginated page_obj.previous_page_number %}">
+                Previous Page
+            </a>
+        </li>
+    {% endif %}
+    
+    {% for page in paginator.page_range %}
+        <li>
+            <a href="{% url blog_index_paginated page %}">
+                {{ page }}
+            </a>
+        </li>
+    {% endfor %}
+    
+    {% if page_obj.has_next %}
+        <li>
+            <a href="{% url blog_index_paginated page_obj.next_page_number %}">
+                Next Page
+            </a>
+        </li>
+    {% endif %}
+    </ul>
+{% endif %}

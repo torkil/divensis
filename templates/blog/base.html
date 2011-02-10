@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block bodyid %}blog_b{% endblock %}
+
+{% load tagging_tags %}
+{% load blog_tags %}
+
+{% block content %}
+  {% block blog_content %}{% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+  {{ block.super }}
+  {% include "blogsidebar.html" %}
+{% endblock %}

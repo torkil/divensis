@@ -1,0 +1,15 @@
+{% load inlines %}
+{% load oembed_tags %}
+
+{% oembed %}
+  {% with obj.object.gallery.image_set.all as image_set %}
+    {% for image in image_set %}
+      <img src="{{ image.feed_image.url }}" alt="{{ obj.title }}" width="720" height="415" />
+    {% endfor %}
+  {% endwith %}
+  {{ obj.body_html|render_inlines|safe }}
+  <a href="{{ obj.url }}">
+      {% if obj.model_name == "project" %}View project{% endif %}
+      {% if obj.model_name == "post" %}Read on{% endif %}
+  </a>
+{% endoembed %}

@@ -1,0 +1,11 @@
+syntax: glob
+*.pyc
+*.*~*
+*.kpf
+*.orig
+*.db
+pip-log.txt
+static/uploads/**
+
+syntax: regexp
+

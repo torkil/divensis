@@ -1,0 +1,30 @@
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django
+
+PIL
+BeautifulSoup
+python-dateutil
+django-debug-toolbar
+django-tagging
+simplejson
+Pygments
+South
+textile
+flup
+xapian-haystack
+
+-e git+git://github.com/kylef/django-request.git#egg=request
+-e git+git://github.com/django-extensions/django-extensions.git#egg=django_extensions
+-e hg+http://bitbucket.org/jdriscoll/django-imagekit/#egg=imagekit
+-e git+git://github.com/montylounge/django-sugar.git#egg=sugar
+-e hg+https://bitbucket.org/ubernostrum/django-contact-form/#egg=contact_form
+-e git+git://github.com/hlindset/django-tumbleweed.git#egg=tumbleweed
+-e git+git://github.com/toastdriven/django-haystack.git#egg=haystack
+-e git+git://github.com/zerok/django-flatblocks.git#egg=flatblocks
+-e git+git://github.com/brosner/django-oembed.git#egg=oembed
+-e git+git://github.com/mintchaos/django_compressor.git#egg=compressor
+-e git+git://github.com/bartTC/django-markup.git#egg=django_markup
+-e hg+https://bitbucket.org/carljm/django-markitup/#egg=markitup
+-e git+git://github.com/arthurk/django-disqus.git#egg=disqus
+-e git+git://gitorious.org/python-markdown/mainline.git#egg=markdown
+-e hg+https://python-twitter.googlecode.com/hg/#egg=twitter
+-e git+git://github.com/garethr/django-clue.git#egg=clue

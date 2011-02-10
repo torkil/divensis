@@ -1,0 +1,42 @@
+{% extends "tumbleweed/base.html" %}
+
+{% block tumbleweed_content %}
+    <h3>Archive for {{ year }}</h3>
+    {% for object in page.object_list %}
+        {% if forloop.counter0|divisibleby:"2" and not forloop.first %}</div>{% endif %}
+        {% if forloop.counter0|divisibleby:"2" or forloop.first %}<div class="row">{% endif %}
+        <div class="col post">
+
+            {% if object.image %}
+                <a href="{{ object.url }}" class="imglink">
+                    <img src="{{ object.image }}" alt="{{ object.title }}" width="350" height="195" class="load" />
+                </a>
+            {% endif %}
+
+            <h3><a href="{{ object.url }}">{{ object.title }}</a></h3>
+            <p>
+            {% if object.excerpt %}
+                {{ object.excerpt|safe }}
+            {% else %}
+                {{ object.body_html|striptags|safe|truncatewords_html:50 }}
+            {% endif %}
+            </p>
+            <a class="readmore" href="{{ object.url }}">
+                {% if object.model_name == "project" %}View project{% endif %}
+                {% if object.model_name == "post" %}Read on{% endif %}
+            </a>
+        </div>
+        {% if forloop.last %}</div>{% endif %}
+    {% empty %}
+        <p>No content</p>
+    {% endfor %}
+
+    <div class="pagination">
+    {% if page.has_previous %}
+        <a href="{% url tumble_index_paginated page.previous_page_number %}">&laquo; Previous page</a>
+    {% endif %}
+    {% if page.has_next %}
+        <a href="{% url tumble_index_paginated page.next_page_number %}">Next page &raquo;</a>
+    {% endif %}
+    </div>
+{% endblock %}

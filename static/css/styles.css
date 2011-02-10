@@ -1,0 +1,172 @@
+/*
+Tailored styles by Divensis Design
+http://www.divensis.no
+*/
+
+body {
+	font: 12px 'Helvetica Neue', FreeSans, Arial, sans-serif;
+	line-height: 16px;
+	overflow-y: scroll;
+	color: #000;
+}
+
+* html body { overflow-y: visible; } /*IE6*/
+*+html body { overflow-y: visible; } /*IE7*/
+
+
+h1 { font-size: 24px; padding: 10px 0 12px 0; }
+h2 { font-size: 18px; padding-bottom: 3px; }
+h3 { font-size: 14px; font-weight: bold }
+h4 { font-size: 12px; font-weight: bold }
+
+
+div#fullwrapper2 {
+	width: 100%;
+	min-height: 600px;
+}
+
+* html div#fullwrapper2 { height: 600px; }
+
+div#wrapper {
+	border: 2px solid red;
+	margin: auto;
+	height: 100%;
+	width: 980px;
+	overflow: visible;
+	text-align: center;
+	overflow: hidden;
+}
+
+/* ----------- BASIC SNACKS ----------- */
+
+p {	line-height: 19px; }
+
+a:hover { color: #000;text-decoration:none; }
+
+/* ----------- NAVBAR ----------- */
+
+div#navbar {
+	width: 225px;
+	border: 1px solid #666;
+	text-align: left;
+	float: left;
+	padding-right: 10px;
+}
+
+a#logo {
+	display: block;
+	float: left;
+	width: 150px;
+	height: 30px;
+	border: 1px solid #999;
+	margin: 10px 0 0 0px;
+}
+
+#navbtns {
+	clear: both;	
+}
+
+li#nav_front,
+li#nav_about,
+li#nav_projects {
+	float: left;
+	height: 40px;
+	width: 220px;
+	background: #eee;
+	margin-bottom:1px;
+}
+
+li#nav_front a,
+li#nav_about a,
+li#nav_projects a {
+	display: block;
+	border-left: 4px solid yellow;
+	height: 30px;
+	width: 210px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+li#nav_front a:hover,
+li#nav_about a:hover,
+li#nav_projects a:hover {
+	border-left: 4px solid red;
+}
+
+.navbarbox {
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* ----------- MAINCOL ----------- */
+
+div#maincol {
+	width: 725px;
+	border: 1px solid #666;
+	text-align: left;
+	float: right;
+	padding-left: 10px;
+}
+
+/* ----------- MAINCOL BLOG ----------- */
+
+div#featured_front {	
+	margin-left: 10px;
+}
+
+div#featured_front img {
+	display: block;
+	width: 715px;
+	height: 400px;
+	background: #ccc;
+}
+
+div.postwrap {
+	width: 350px;
+	border: 1px solid #555;
+	float: left;
+	margin-left: 10px;
+}
+
+div.postwrap img {
+	width: 350px;
+	height: 160px;
+	display: block;
+	background: #666
+}
+
+.linebreaker {
+	background: #ccc;
+	height: 10px;
+	float: right;
+	clear: both;
+	width: 715px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.pagination {
+	clear: both;	
+}
+
+/* ----------- FOOTER ----------- */
+
+#footer {
+	clear: both;
+	width: 738px;
+	float: right;	
+	text-align: left;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#footer_left {
+	float: left;
+	width: 500px;
+}
+
+#footer_right {
+	float: right;
+	width: 150px;
+}

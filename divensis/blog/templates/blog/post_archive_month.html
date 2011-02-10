@@ -1,0 +1,44 @@
+<ul>
+    <li>month: {{ month }}</li>
+    <li>next_month: {{ next_month }}</li>
+    <li>previous_month: {{ previous_month }}</li>
+</ul>
+
+<ul>
+    {% for date in date_list %}
+        <li>{{ date }}</li>
+    {% endfor %}
+</ul>
+
+{% for object in object_list %}
+    <hr />
+    <ul>
+        <li><a href="{{ object.get_absolute_url }}">Absolute URL</a></li>
+        <li>Title: {{ object.title }}</li>
+        <li>Slug: {{ object.slug }}</li>
+        <li>Author: {{ object.author }}</li>
+        <li>Categories:
+            <ul>
+                {% for category in object.categories.all %}
+                <li>
+                    <a href="{{ category.get_absolute_url }}">
+                        {{ category.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Allow comments: {{ object.allow_comments }}</li>
+        <li>Visits: {{ object.visits }}</li>
+        <li>Tags: {{ object.tags }}</li>
+        <li>Published: {{ object.published_date }}</li>
+        <li>Created: {{ object.created_date }}</li>
+        <li>Modified: {{ object.modified_date }}</li>
+        <li>Status: {{ object.status }}</li>
+        <li>Excerpt: {{ object.excerpt }}</li>
+        <li>Body: {{ object.body }}</li>
+        <li>Body HTML:{{ object.body_html }}</li>
+    </ul>
+{% empty %}
+    <p>There are no posts here.</p>
+{% endfor %}

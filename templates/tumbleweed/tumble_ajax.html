@@ -1,0 +1,57 @@
+{% block tumbleweed_content %}
+    {% for object in page.object_list %}
+        {% if forloop.counter0|divisibleby:"2" and not forloop.first %}</div>{% endif %}
+        {% if forloop.counter0|divisibleby:"2" or forloop.first %}<div class="row">{% endif %}
+        <div class="col post">
+
+            {% if object.image %}
+                <a href="{{ object.url }}" class="imglink">
+                    <img src="{{ object.image }}" alt="{{ object.title }}" width="350" height="195" class="load" />
+                </a>
+            {% endif %}
+
+            <h3><a href="{{ object.url }}">{{ object.title }}</a></h3>
+            <p>
+            {% if object.excerpt %}
+                {{ object.excerpt|safe }}
+            {% else %}
+                {{ object.body_html|striptags|safe|truncatewords_html:50 }}
+            {% endif %}
+            </p>
+
+            <div class="panelfooter">
+                {% with object.model_name as model %}
+                    {% if model == "post" %}
+                        <span class="panel_comments"><a href="{{ object.url }}#disqus_thread"><img src="{{ MEDIA_URL }}gfx/spinner.gif" class="comment_count_spinner" /></a></span>
+                    {% endif %}
+                    <a class="panel_view" href="{{ object.url }}">
+                        {% if model == "project" %}View project{% endif %}
+                        {% if model == "post" %}Read on{% endif %}
+                    </a>
+                    <span class="panel_category">
+                        {% if model == "project" %}
+                            Filed under <a href="/projects/">Projects</a>
+                        {% endif %}
+                        {% if model == "post" %}
+                            Filed under 
+                            {% for category in object.categories %}
+                                <a href="{{ category.url }}">{{ category.title }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </span>
+                {% endwith %}
+            </div>
+        </div>
+        {% if forloop.last %}</div>{% endif %}
+    {% empty %}
+        <p id="no_more_pages">
+            &nbsp;
+        </p>
+    {% endfor %}
+
+    {% if page.has_next %}
+      <span class="next_page_exists"></span>
+    {% endif %}
+    
+    {% include "disqus_comment_count_js.html" %}
+{% endblock %}

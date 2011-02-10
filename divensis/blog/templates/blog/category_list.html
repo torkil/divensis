@@ -1,0 +1,9 @@
+{% for object in object_list %}
+    <ul>
+        <li><a href="{{ object.get_absolute_url }}">Absolute URL</a></li>
+        <li>Title: {{ object.title }}</li>
+        <li>Slug: {{ object.slug }}</li>
+    </ul>
+{% empty %}
+    <p>There are no posts here.</p>
+{% endfor %}

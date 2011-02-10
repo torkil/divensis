@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load portfolio_tags %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% load compress %}
+    {% compress js %}
+    <script src="{{ MEDIA_URL }}js/projects.js" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+{% endblock %}
+
+{% block bodyid %}projects_b{% endblock %}
+
+{% block content %}
+    {% block portfolio_content %}{% endblock %}
+    
+    
+    <div id="cat_wrap">
+      <div id="cat_selector">
+          <ul>
+            {% get_portfolio_categories as category_list %}
+            {% for category in category_list %}
+            {# class="selected" #}
+              <li><a href="#" class="project_filter" id="{{ category.slug }}">{{ category.title }}</a></li>
+            {% endfor %}
+            <li id="cat_all"><a class="project_filter" href="#" id="all">All</a></li>
+          </ul>
+      </div> <!-- /categoryselector -->
+
+      <ol id="filterbox" class="clearit" style="overflow: hidden;">
+      {% get_portfolio_projects as project_list %}
+      {% for project in project_list %}
+        <li class="project_thumb all {{ project.all_categories_slugified }}">
+          <a href="{{ project.get_absolute_url }}">
+          <img class="thumb_img load" src="{{ project.gallery.get_first_image.portfolio_filter.url }}" alt="{{ project.name }}" title="{{ project.name }}" width="230" height="115" />
+            <strong>{{ project.name }} <span>{{ project.type }}</span></strong>
+          </a>
+        </li>
+      {% empty %}
+        <li>No projects yet</li>
+      {% endfor %}
+      </ol>
+    </div> <!-- /cat_wrap -->
+{% endblock content %}
+
+{% block navprojects %}
+    {% get_portfolio_categories as category_list %}
+    <ins>
+    <span>
+    {% for category in category_list %}
+        <i title="{{ category.slug }}"{% if forloop.first %} class="cur"{% endif %}>{{ category.title }}</i>
+    {% endfor %}
+        <i title="all">All</i>
+    </span>
+    <span class="btntitle">Projects</span>
+    </ins>
+{% endblock %}

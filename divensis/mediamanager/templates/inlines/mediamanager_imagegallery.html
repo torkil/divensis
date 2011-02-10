@@ -1,0 +1,19 @@
+{% if object %}
+    <div class="inline gallery">
+      {% for image in object.image_set.all %}
+        <img src="{{ image.display.url }}" class="{{ class }}" />
+        {% if image.title %}<span class="caption">{{ image.title }}</span>{% endif %}
+      {% endfor %}
+    </div>
+{% endif %}
+
+{% if object_list %}
+    {% for object in object_list %}
+      <div class="inline gallery">
+        {% for image in object.image_set.all %}
+          <img src="{{ image.display.url }}" class="{{ class }}" />
+          {% if image.title %}<span class="caption">{{ image.title }}</span>{% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+{% endif %}

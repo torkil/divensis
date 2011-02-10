@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block bodyid %}blog_b{% endblock %}
+
+{% block content %}
+  {% block tumbleweed_content %}{% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+  {{ block.super }}
+  {% include "blogsidebar.html" %}
+{% endblock %}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="no">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>{% block title %}Tailored pixels by Divensis Design{% endblock %}</title>
+    <meta name="copyright" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="index, follow" />
+    <meta name="distribution" content="global" />
+    <meta name="description" content="Divensis Design" />
+    {% load compress %}
+    <link rel="alternate" type="application/rss+xml" title="Latest content RSS" href="http://feeds.feedburner.com/divensis/" />
+    <link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}gfx/favicon.png" />
+    <link rel="apple-touch-icon" href="{{ MEDIA_URL }}gfx/apple-touch-icon.png" />
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/divensis.css" />
+    {% endcompress %}
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    {% compress js %}
+    <script src="{{ MEDIA_URL }}js/cufon-yui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+<script src="{{ MEDIA_URL }}js/mokka.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ MEDIA_URL }}js/mokka_sc.js" type="text/javascript" charset="utf-8"></script>
+    {% block extrahead %}{% endblock %}
+    {% load styling %}
+    {% get_stylesheet_for_url as custom_stylesheet %}
+    {% if custom_stylesheet %}
+      {% compress css %}
+        <style type="text/css">
+          /* tailored css */
+          {{ custom_stylesheet|safe }}
+        </style>
+      {% endcompress %}
+    {% endif %}
+    <!--[if IE]><meta http-equiv="imagetoolbar" content="no" /><meta http-equiv="X-UA-Compatible" content="IE=8" /><![endif]-->
+</head>
+
+<body id="{% block bodyid %}{% endblock %}">
+
+<div id="fullwrapper">
+<div id="fullwrapper2">
+    <div id="wrap">
+        <div id="side">
+            <h1><a href="/" id="logo">Divensis</a></h1>
+            <ol>
+                <li id="nav-front"><a href="/"><span class="btntitle">Latest</span></a></li>
+                <li id="nav-about"><a href="/about/"><span class="btntitle">About</span></a></li>
+                <li id="nav-projects">
+                    <a href="/projects/">
+                        {% block navprojects %}<span class="btntitle">Projects</span>{% endblock %}
+                    </a>
+                </li>
+            </ol>
+
+            <div id="contactbox">
+                (+47) 900 26 994
+                {% load util_tags %}
+                <ins id="side_mail">
+                    {% encrypt_email "post@divensis.no" %}
+                </ins>
+                <a id="side_rss" href="http://feeds.feedburner.com/divensis">Subscribe via RSS</a>
+            </div>
+            
+            
+            
+            <div id="twitter">
+          <h6>Latest tweet</h6>
+        {% load util_tags %}
+        {% get_twitter_status as twitter %}
+        <p>{{ twitter.status|urlize }}</p>
+        <a href="{{ twitter.url_user }}">@{{ twitter.username }}</a> {{ twitter.time }}
+          </div>
+      {% block sidebar %}{% endblock sidebar %}
+    </div>
+    <div id="cont">
+        {% block content %}Default value{% endblock content %}
+    </div>
+    <div id="footer">
+        <div id="footer_left">Divensis Design / Dronningensgate 11 / 7013 Trondheim / Norway</div>
+        <div id="footer_right"><a href="#" id="returntotop">Return to top</a></div>
+    </div>
+  </div>
+</div> <!-- /fullwrapper -->
+</div> <!-- /fullwrapper2 -->
+<script type="text/javascript" charset="utf-8">
+    Cufon.now();
+</script>
+{% block body_end %}{% endblock body_end %}
+<script type="text/javascript" charset="utf-8">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" charset="utf-8">
+    var pageTracker = _gat._getTracker("UA-4708909-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+</script>
+</body>
+</html>

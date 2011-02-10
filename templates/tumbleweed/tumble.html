@@ -1,0 +1,105 @@
+{% extends "tumbleweed/base.html" %}
+
+{# ajax pagination #}
+{% block body_end %}
+  {% load compress %}
+  {% compress js %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+        var paginationDiv = $('div.ajax_pagination');
+        var page = 2;
+        // replace old, boring pagination with new, cool ajax pagination
+        paginationDiv.html('<a href="#nextpage" class="tumble_paginate_ajax">More posts</a>');
+        $('a.tumble_paginate_ajax').click(function(event) {
+            $.get('/page/'+page+'/ajax/', function(data) {
+                var nextPageExists = $(data).is("span.next_page_exists");
+                $("div.pagination").before('<div class="ajax_page_'+page+'"></div>');
+                var newPageDiv = $('div.ajax_page_'+page);
+                newPageDiv.hide().css({"overflow":"hidden"});
+                newPageDiv.html(data);
+                Cufon.refresh(); // refresh cufon
+                loadImages('div.ajax_page_'+page+' img.load'); // load images nicely
+                newPageDiv.slideDown(function() {
+                    $.scrollTo(newPageDiv, 350); // scroll to the new page
+                });
+                page = page + 1;
+                if (!nextPageExists) {
+                    paginationDiv.fadeOut(function() {
+                        $(this).hide();
+                    });
+                }
+            });
+        });
+    });
+  </script>
+  {% endcompress %}
+  
+  
+  {% include "disqus_comment_count_js.html" %}
+{% endblock %}
+
+{% block tumbleweed_content %}
+    {% if page.number == 1 %}
+        {% load featured_tags %}
+        {% render_featured_item %}
+    {% endif %}
+
+    {% for object in page.object_list %}
+        {% if forloop.counter0|divisibleby:"2" and not forloop.first %}</div>{% endif %}
+        {% if forloop.counter0|divisibleby:"2" or forloop.first %}<div class="row">{% endif %}
+        <div class="col post">
+
+            {% if object.image %}
+                <a href="{{ object.url }}" class="imglink">
+                    <img src="{{ object.image }}" alt="{{ object.title }}" width="350" height="195" class="load" />
+                </a>
+            {% endif %}
+
+            <h3><a href="{{ object.url }}">{{ object.title }}</a></h3>
+            <p>
+            {% if object.excerpt %}
+                {{ object.excerpt|safe }}
+            {% else %}
+                {{ object.body_html|striptags|safe|truncatewords_html:50 }}
+            {% endif %}
+            </p>
+            
+            <div class="panelfooter">
+                {% with object.model_name as model %}
+                    {% if model == "post" %}
+                        <span class="panel_comments"><a href="{{ object.url }}#disqus_thread"><img src="{{ MEDIA_URL }}gfx/spinner.gif" class="comment_count_spinner" /></a></span>
+                    {% endif %}
+                    <a class="panel_view" href="{{ object.url }}">
+                        {% if model == "project" %}View project{% endif %}
+                        {% if model == "post" %}Read on{% endif %}
+                    </a>
+                    <span class="panel_category">
+                        {% if model == "project" %}
+                            Filed under <a href="/projects/">Projects</a>
+                        {% endif %}
+                        {% if model == "post" %}
+                            Filed under 
+                            {% for category in object.categories %}
+                                <a href="{{ category.url }}">{{ category.title }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </span>
+                {% endwith %}
+            </div>
+        </div>
+        {% if forloop.last %}</div>{% endif %}
+    {% empty %}
+        <p>No content</p>
+    {% endfor %}
+
+    {% if page.has_previous or page.has_next %}
+        <div class="pagination ajax_pagination">
+        {% if page.has_previous %}
+            <a href="{% url tumble_index_paginated page.previous_page_number %}" class="previous">&laquo; Previous page</a>
+        {% endif %}
+        {% if page.has_next %}
+            <a href="{% url tumble_index_paginated page.next_page_number %}" class="next">Next page &raquo;</a>
+        {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

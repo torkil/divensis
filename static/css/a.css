@@ -1,0 +1,11 @@
+body,input,textarea,button,select{color:#000;font:12px/20px "Lucida Grande","Verdana","Arial",sans-serif}
+body{padding:100px}a{color:#4c6a65}a:hover,a:focus{color:#000}
+
+ul{overflow:hidden;width:200px;float:left;display:inline;margin-right:30px}
+ul a{display:block;text-decoration:none;line-height:40px;height:40px;border-top:1px solid #ccc;overflow:hidden}
+ul a span{float:left;overflow:hidden}ul a span i{display:none;float:left;clear:left}
+ul a span i.cur,ul a span.animate i{display:inline}
+
+#cont{float:left;width:400px;padding:20px;background:#eee;overflow:hidden}
+#cont a{float:left;padding:4px 10px;background:#ddd;margin-right:1px;text-decoration:none}
+#cont a:hover,#cont a:focus{background:#999;color:#fff}

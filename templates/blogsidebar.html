@@ -1,0 +1,17 @@
+<h6 id="side_blogcat">Categories</h6> 
+<ul class="blog_categories">
+  {% load blog_tags %}
+  {% get_blog_categories as blog_category_list %}
+  {% for category in blog_category_list %}
+    <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a> <span>({{ category.post_set.published.count }})</span></li>
+  {% endfor %}
+</ul>
+  
+<h6 id="side_recent">Recent posts</h6>
+<ul class="recent_posts">
+  {% load tumbleweed %}
+  {% get_latest_tumbles 5 as latest_tumbles %}
+  {% for tumble in latest_tumbles %}
+    <li><a href="{{ tumble.url }}">{{ tumble.title }}</a></li> 
+  {% endfor %}
+</ul>

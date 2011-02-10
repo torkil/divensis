@@ -1,0 +1,48 @@
+{% load tagging_tags %}
+{% load util_tags %}
+{% load mediamanager_tags %}
+
+{% block blog_content %}
+  {% for object in object_list %}
+    <div class="blog_post">
+      <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+      <ul>
+        <li>Posted: {{ object.published_date|date:"F jS, Y" }}</li>
+        <li>Author: {{ object.author|realname }}</li>
+        <li>Category:
+          {% for category in object.categories.all %}
+            <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+            {% if not forloop.last %}, {% endif%}
+          {% endfor %}
+        </li>
+        <li>Tags:
+          {% tags_for_object object as tags %}
+          {% for tag in tags %}
+            <a href="{% url blog_tag_detail slug=tag %}">{{ tag }}</a>
+            {% if not forloop.last %}, {% endif%}
+          {% endfor %}
+        </li>
+      </ul>
+      <div class="blog_post_excerpt">
+        {% if object.excerpt %}
+          {{ object.excerpt }}
+        {% else %}
+          {{ object.body_html|truncatewords_html:50|safe }}
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <p>There are no blog posts yet.</p>
+  {% endfor %}
+
+  {% if is_paginated %}
+    <div class="blog_pagination">
+      {% if page_obj.has_previous %}
+        <a href="{% url blog_index_paginated page_obj.previous_page_number %}">&laquo; Previous Page</a>
+      {% endif %}
+      {% if page_obj.has_next %}
+        <a href="{% url blog_index_paginated page_obj.next_page_number %}">Next Page &raquo;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

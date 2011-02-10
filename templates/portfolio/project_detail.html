@@ -1,0 +1,85 @@
+{% extends "portfolio/base.html" %}
+
+{% load inlines %}
+{% load oembed_tags %}
+
+{% block title %}{{ object.title }} // A tailored project by Divensis Design{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <script src="{{ MEDIA_URL }}js/jquery.cycle.min.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block body_end %}
+  {{ block.super }}
+  {% load compress %}
+  {% compress js %}
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      function navBuilder(index, element) {
+          return '<li><a href="#">' + ($(element).index()+1) + '</a></li>';
+      }
+
+      if ($('#slideshow>div.slide').size() > 1) {
+        $('#slideshow').cycle({
+            fx:      'fade',
+            speed:   350,
+            timeout: 0,
+            next:    '#slideshow',
+            pager:   '#nav',
+            slideExpr: 'div.slide',
+            height: 415,
+            pagerAnchorBuilder: navBuilder
+        });
+
+        $('div.navcontainer').stop().fadeTo(2500, 0);
+
+        $('div#slideshow').hover(function(event) {
+            // mouse in
+            $('div.navcontainer').stop().fadeTo(350, 1);
+        }, function(event) {
+            // mouse out
+            $('div.navcontainer').stop().fadeTo(350, 0);
+        });
+      } else {
+        $('div.navcontainer').remove();
+      }
+    });
+  </script>
+  {% endcompress %}
+{% endblock %}
+
+{% block portfolio_content %}
+    <div id="slideshow">
+        {% comment %}
+        {% with object.gallery.get_first_image as image %}
+            <div class="slide">
+                <img class="blogpic" src="{{ image.blog_large.url }}" alt="{{ image.caption }}" title="{{ image.caption }}" />
+            </div>
+        {% endwith %}
+        {% endcomment %}
+
+        {% for image in object.gallery.image_set.all %}
+          <div class="slide">
+            <img src="{{ image.portfolio_large.url }}" width="720" height="415" class="load" />
+          </div>
+        {% endfor %}
+
+        <div class="navcontainer">
+            <div class="transparency"></div>
+            <ul id="nav" class="nav">
+                <!-- insert nav -->
+            </ul>
+        </div>
+    </div> <!-- /slideshow -->
+
+    <div id="projectinfo">
+        <h2>{{ object.title }}</h2>
+        {% oembed %}
+            {{ object.body_html|render_inlines|safe }}
+        {% endoembed %}
+    </div> <!-- /projectinfo -->
+
+    {% load portfolio_tags %}
+    {% render_project_details object.details %}
+{% endblock %}

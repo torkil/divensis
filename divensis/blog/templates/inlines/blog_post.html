@@ -1,0 +1,15 @@
+{% if object %}
+    <p class="inline blogpost {{ class }}">
+        <em>Blog post:</em> <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+    </p>
+{% endif %}
+
+{% if object_list %}
+    <ul class="inline blogpost {{ class }}">
+    {% for object in object_list %}
+        <li>
+            <em>Blog post:</em> <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}

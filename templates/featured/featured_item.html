@@ -1,0 +1,15 @@
+{% if object %}
+  <div class="row">
+    <div class="col full post">
+      <a href="{{ object.url }}" class="imglink"><img src="{{ object.gallery.get_first_image.featured.url }}" alt="{{ object.title }}" width="720" height="415" class="load" /></a>
+      <h2><a href="{{ object.url }}">{{ object.title }}</a></h2>
+      <a class="readmore" href="{{ object.url }}">
+        {% if object.link_text %}
+          {{ object.link_text }}
+        {% else %}
+          Read more
+        {% endif %}
+      </a>
+    </div>
+  </div>
+{% endif %}

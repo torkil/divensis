@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+
+{% load inlines %}
+{% load oembed_tags %}
+{% load tagging_tags %}
+{% load util_tags %}
+
+{% block title %}{{ object.title }} // Tailored pixels by Divensis Design{% endblock %}
+
+{% block blog_content %}
+  <div id="blogpic_top">
+    {% with object.gallery.get_first_image as image %}
+      {% if image %}
+        <img class="blogpic" src="{{ image.blog_large.url }}" alt="{{ image.caption }}" title="{{ image.caption }}" />
+      {% endif %}
+    {% endwith %}
+
+    {% comment %}
+    <!-- TODO: HOOK UP SLIDESHOW -->
+    {% for image in object.gallery.image_set.all %}
+      <img class="blogpic" src="{{ image.blog_large.url }}" alt="{{ image.caption }}" title="Lorem ipsum" />
+    {% endfor %}
+    <!-- END COMMENT -->
+    {% endcomment %} 
+  </div>
+  <div id="blogcredits">
+    <span id="blogcredits_date">{{ object.published_date|date:"F j" }}</span>
+    <span id="blogcredits_author">by {{ object.author|realname }}</span>
+  </div>
+  <h2 id="blogtitle">{{ object.title }}</h2>
+  <p class="introtext">{{ object.excerpt }}</p>
+  <div class="blogbody">
+    {% oembed %}
+      {{ object.body_html|render_inlines|safe }}
+    {% endoembed %}
+  </div> 
+  <div class="blogcomments">
+    <div id="disqus_thread"></div>
+    <noscript><a href="http://disqus.com/forums/divensis/?url=ref">View the discussion thread.</a></noscript>
+
+  </div>
+{% endblock %}
+
+{% block body_end %}
+  {{ block.super }}
+  <script type="text/javascript" src="http://disqus.com/forums/divensis/embed.js" async="true"></script>
+{% endblock %}

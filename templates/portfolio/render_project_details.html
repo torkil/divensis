@@ -1,0 +1,10 @@
+{% if details %}
+<div id="projectdetails">  
+    <h4>Project details</h4>          
+    <ul>
+        {% for detail in details %}
+            <li><strong>{{ detail.type|safe }}:</strong> {{ detail.content|safe }}</li>
+        {% endfor %}
+    </ul>                
+</div>
+{% endif %}
